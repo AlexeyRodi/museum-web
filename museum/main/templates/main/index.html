@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Главная</title>
     <link href="{% static 'main/css/bootstrap.min.css'%}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'main/css/main.css'%}">
   </head>
@@ -22,7 +22,7 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="exhibitions-list.html">Выставки</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'exhibitions_list' %}">Выставки</a>
           </li>
 
           <li class="nav-item">
