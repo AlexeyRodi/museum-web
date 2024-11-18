@@ -1,0 +1,9 @@
+.imclass{
+    width: 812px; 
+    height: 812px; 
+    object-fit: cover;
+}
+
+.head-text{
+    margin-top: 70px;
+}
