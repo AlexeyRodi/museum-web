@@ -15,15 +15,17 @@ class Exhibit(models.Model):
     description = models.TextField(blank=True, null=True)
     creation_year = models.IntegerField(blank=True, null=True)
     creator = models.CharField(max_length=255, blank=True, null=True)
-    room = models.ForeignKey('MuseumRoom', models.DO_NOTHING, blank=True, null=True)
+    room = models.ForeignKey('Museum_Room', models.DO_NOTHING, blank=True, null=True)
     user = models.ForeignKey('Users', models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'exhibit'
+        verbose_name = 'Экспонат'
+        verbose_name_plural = 'Экспонаты'
 
 
-class ExhibitExhibition(models.Model):
+class Exhibit_Exhibition(models.Model):
     exhibit = models.OneToOneField(Exhibit, models.DO_NOTHING, primary_key=True)  # The composite primary key (exhibit_id, exhibition_id) found, that is not supported. The first column is selected.
     exhibition = models.ForeignKey('Exhibition', models.DO_NOTHING)
 
@@ -47,9 +49,11 @@ class Exhibition(models.Model):
     class Meta:
         managed = False
         db_table = 'exhibition'
+        verbose_name = 'Выставка'
+        verbose_name_plural = 'Выставки'
 
 
-class ExhibitionCategory(models.Model):
+class Exhibition_Category(models.Model):
     category_id = models.AutoField(primary_key=True)
     category_name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
@@ -57,11 +61,13 @@ class ExhibitionCategory(models.Model):
     class Meta:
         managed = False
         db_table = 'exhibition_category'
+        verbose_name = 'Категория выставок'
+        verbose_name_plural = 'Категории выставок'
 
 
-class ExhibitionExhibitionCategory(models.Model):
+class Exhibition_Exhibition_Category(models.Model):
     exhibition = models.OneToOneField(Exhibition, models.DO_NOTHING, primary_key=True)  # The composite primary key (exhibition_id, category_id) found, that is not supported. The first column is selected.
-    category = models.ForeignKey(ExhibitionCategory, models.DO_NOTHING)
+    category = models.ForeignKey(Exhibition_Category, models.DO_NOTHING)
 
     class Meta:
         managed = False
@@ -77,9 +83,11 @@ class Museum(models.Model):
     class Meta:
         managed = False
         db_table = 'museum'
+        verbose_name = 'Музей'
+        verbose_name_plural = 'Музеи'
 
 
-class MuseumRoom(models.Model):
+class Museum_Room(models.Model):
     room_id = models.AutoField(primary_key=True)
     room_number = models.CharField(max_length=50)
     description = models.TextField(blank=True, null=True)
@@ -88,6 +96,8 @@ class MuseumRoom(models.Model):
     class Meta:
         managed = False
         db_table = 'museum_room'
+        verbose_name = 'Комната музея'
+        verbose_name_plural = 'Комнаты музея'
 
 
 class Users(models.Model):
@@ -99,4 +109,6 @@ class Users(models.Model):
     class Meta:
         managed = False
         db_table = 'users'
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
 
