@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Комнаты</title>
     <link href="{% static 'main/css/bootstrap.min.css'%}" rel="stylesheet">
-    <link rel="stylesheet" href="c">
+    <link rel="stylesheet" href="{% static 'main/css/main.css'%}">
 </head>
 <body>
 <nav class="navbar fixed-top bg-body-tertiary">
@@ -43,12 +43,18 @@
 <div class="container-fluid">
     <h1 class="head-text">Список комнат</h1>
     <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Номер</th>
+            <th scope="col">Описание</th>
+        </tr>
+        </thead>
         <tbody>
         {% for room in rooms %}
         <tr>
             <td>{{ room.room_number }}</td>
             <td><p>текст</p></td>
-            <td><a href="{% url 'exhibits_list' %}">
+            <td><a href="{% url 'exhibits_list' room_id=room.room_id %}">
                 <button type="button" class="btn btn-secondary">Экспонаты</button>
             </a>
             </td>
