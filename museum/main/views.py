@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Exhibition
+from .models import Exhibition, Museum_Room
 
 
 def index(request):
@@ -7,7 +7,8 @@ def index(request):
 
 
 def rooms_list(request):
-    return render(request, 'main/rooms-list.html')
+    rooms = Museum_Room.objects.all()
+    return render(request, 'main/rooms-list.html',{'rooms' : rooms})
 
 
 def exhibitons_list(request):
