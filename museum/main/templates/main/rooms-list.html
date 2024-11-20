@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Комнаты</title>
     <link href="{% static 'main/css/bootstrap.min.css'%}" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'main/css/main.css'%}">
+    <link rel="stylesheet" href="c">
   </head>
   <body>
     <nav class="navbar fixed-top bg-body-tertiary">
@@ -45,7 +45,7 @@
               <tr>
                 <td>Mark</td>
                 <td><p>текст</p></td>
-                <td><a href="exhibits-list.html"><button type="button" class="btn btn-secondary">Экспонаты</button></td></a>
+                <td><a href="{% url 'exhibits_list' %}"><button type="button" class="btn btn-secondary">Экспонаты</button></td></a>
                 <td>
                     <div class="btn-group">
                     <a href="#" class="btn btn-primary active" aria-current="page">Изменить</a>

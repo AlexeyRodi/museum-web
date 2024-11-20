@@ -13,3 +13,6 @@ def rooms_list(request):
 def exhibitons_list(request):
     exhibitions = Exhibition.objects.all()
     return render(request, 'main/exhibitions-list.html', {'exhibitions': exhibitions})
+
+def exhibits_list(request):
+    return render(request,'main/exhibits-list.html')

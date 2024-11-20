@@ -1,11 +1,12 @@
+{% load static%}
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/main.css">
+    <link href="{% static 'main/css/bootstrap.min.css'%}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'main/css/bootstrap.min.css'%}">
   </head>
   <body>
     <nav class="navbar fixed-top bg-body-tertiary">
@@ -13,15 +14,15 @@
           <a class="navbar-brand" href="#">Музей Эрмитаж</a>
           <ul class="nav justify-content-end">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="index.html">Главная</a>
+              <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Главная</a>
             </li>
             
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="rooms-list.html">Комнаты</a>
+              <a class="nav-link active" aria-current="page" href="{% url 'rooms_list' %}">Комнаты</a>
             </li>
   
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="exhibitions-list.html">Выставки</a>
+              <a class="nav-link active" aria-current="page" href="{% url 'exhibitions_list' %}">Выставки</a>
             </li>
   
             <li class="nav-item">
@@ -76,6 +77,6 @@
           <button type="button" class="btn btn-warning">Добавить</button>
       </div>
 
-    <script src="s/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="{% static 'main/js/bootstrap.bundle.min.js'%}"></script>
   </body>
 </html>
