@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Выставки</title>
+    <title>Добавить выставку</title>
     <link href="{% static 'main/css/bootstrap.min.css'%}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'main/css/main.css'%}">
 </head>
@@ -41,29 +41,29 @@
     </div>
 </nav>
 <div class="container-fluid">
-    <h1 class="head-text">Список выставок</h1>
-    <table class="table">
-        <tbody>
-        {% for exhibition in exhibitions %}
-        <tr>
-            <td>{{ exhibition.name }}</td>
-            <td>
-                <button type="button" class="btn btn-secondary">Подробнее</button>
-            </td>
-            <td>
-                <div class="btn-group">
-                    <a href="#" class="btn btn-primary active" aria-current="page">Изменить</a>
-                    <a href="#" class="btn btn-primary">Удалить</a>
-                </div>
-            </td>
-        </tr>
-        {% endfor %}
+    <h1 class="head-text">Добавить выставку</h1>
+    <p>Название</p>
+    <input class="form-control" type="text" aria-label="default input example">
+    <p>Начальная дата</p>
+    <input class="form-control" type="text" aria-label="default input example">
+    <p>Конечная дата</p>
+    <input class="form-control" type="text" aria-label="default input example">
+    <p>Страна</p>
+    <input class="form-control" type="text" aria-label="default input example">
+    <p>Город</p>
+    <input class="form-control" type="text" aria-label="default input example">
+    <p>Место проведения</p>
+    <input class="form-control" type="text" aria-label="default input example">
+    <p>Ответственное лицо</p>
+    <input class="form-control" type="text" aria-label="default input example">
 
-        </tbody>
-    </table>
-    <a href="{% url 'add_exhibition' %}">
-        <button type="button" class="btn btn-warning">Добавить</button>
-    </a>
+    <p>Музей</p>
+    <select class="form-control" name="museum">
+        {% for museum in museums %}
+        <option value="{{ museum.id }}">{{ museum.name }}</option>
+        {% endfor %}
+    </select>
+    <button type="button" class="btn btn-warning">Добавить</button>
 </div>
 
 <script src="{% static 'main/js/bootstrap.bundle.min.js'%}"></script>

@@ -7,4 +7,5 @@ urlpatterns = [
     path('выставки/', views.exhibitons_list, name='exhibitions_list'),
     path('экспонаты/', views.exhibits_list, name='exhibits_list'),
     path('exhibits/<int:room_id>/', views.exhibits_list, name='exhibits_list'),
+    path('добавитьвыставку/', views.add_exhibition, name='add_exhibition'),
 ]
