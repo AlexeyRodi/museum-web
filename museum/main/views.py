@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
+from .forms import ExhibitionForm
 from .models import Exhibition, Museum_Room, Exhibit, Museum
 
 
@@ -24,5 +25,19 @@ def exhibits_list(request, room_id):
 
 
 def add_exhibition(request):
+    error = ''
     museums = Museum.objects.all()
-    return render(request, 'main/edits/add-exhibition.html', {'museums': museums})
+    if request.method == 'POST':
+        form = ExhibitionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('exhibitions_list')
+        else: error = 'Форма была неверной'
+
+    form = ExhibitionForm()
+    data = {
+        'museums' : museums,
+        'form': form,
+        'error' : error
+    }
+    return render(request, 'main/edits/add-exhibition.html', data)

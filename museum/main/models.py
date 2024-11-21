@@ -86,6 +86,9 @@ class Museum(models.Model):
         verbose_name = 'Музей'
         verbose_name_plural = 'Музеи'
 
+    def __str__(self):
+        return self.name
+
 
 class Museum_Room(models.Model):
     room_id = models.AutoField(primary_key=True)

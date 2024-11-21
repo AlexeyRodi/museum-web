@@ -42,28 +42,20 @@
 </nav>
 <div class="container-fluid">
     <h1 class="head-text">Добавить выставку</h1>
-    <p>Название</p>
-    <input class="form-control" type="text" aria-label="default input example">
-    <p>Начальная дата</p>
-    <input class="form-control" type="text" aria-label="default input example">
-    <p>Конечная дата</p>
-    <input class="form-control" type="text" aria-label="default input example">
-    <p>Страна</p>
-    <input class="form-control" type="text" aria-label="default input example">
-    <p>Город</p>
-    <input class="form-control" type="text" aria-label="default input example">
-    <p>Место проведения</p>
-    <input class="form-control" type="text" aria-label="default input example">
-    <p>Ответственное лицо</p>
-    <input class="form-control" type="text" aria-label="default input example">
-
-    <p>Музей</p>
-    <select class="form-control" name="museum">
-        {% for museum in museums %}
-        <option value="{{ museum.id }}">{{ museum.name }}</option>
-        {% endfor %}
-    </select>
-    <button type="button" class="btn btn-warning">Добавить</button>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.name }}<br>
+        {{ form.start_date }}<br>
+        {{ form.end_date }}<br>
+        {{ form.country }}<br>
+        {{ form.city }}<br>
+        {{ form.venue }}<br>
+        {{ form.responsible_person }}<br>
+        <p>Выбрать музей</p>
+        {{ form.museum }}<br>
+        <span>{{ error }}</span>
+        <button type="submit" class="btn btn-warning">Добавить</button>
+    </form>
 </div>
 
 <script src="{% static 'main/js/bootstrap.bundle.min.js'%}"></script>
