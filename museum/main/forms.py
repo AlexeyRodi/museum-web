@@ -1,11 +1,12 @@
-from .models import Exhibition
+from .models import Exhibition, Museum_Room
 from django.forms import ModelForm, TextInput, DateTimeInput
 from django.forms.widgets import Select
+
 
 class ExhibitionForm(ModelForm):
     class Meta:
         model = Exhibition
-        fields = ['name','start_date','end_date','country','city','venue','responsible_person', 'museum']
+        fields = ['name', 'start_date', 'end_date', 'country', 'city', 'venue', 'responsible_person', 'museum']
 
         widgets = {
             'name': TextInput(attrs={
@@ -41,5 +42,23 @@ class ExhibitionForm(ModelForm):
                 'class': 'form-control',
             }),
 
+        }
 
+class MuseumRoomForm(ModelForm):
+    class Meta:
+        model = Museum_Room
+        fields = ['room_number','description','museum']
+
+        widgets = {
+            'room_number': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Номер',
+            }),
+            'description': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Описание',
+            }),
+            'museum': Select(attrs={
+                'class': 'form-control',
+            })
         }

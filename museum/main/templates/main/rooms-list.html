@@ -68,7 +68,7 @@
         {% endfor %}
         </tbody>
     </table>
-    <button type="button" class="btn btn-warning">Добавить</button>
+    <a href="{% url 'add_museum_room' %}"><button type="button" class="btn btn-warning">Добавить</button></a>
 </div>
 
 <script src="{% static 'main/js/bootstrap.bundle.min.js'%}"

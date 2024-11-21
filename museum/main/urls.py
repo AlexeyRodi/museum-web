@@ -8,4 +8,5 @@ urlpatterns = [
     path('экспонаты/', views.exhibits_list, name='exhibits_list'),
     path('exhibits/<int:room_id>/', views.exhibits_list, name='exhibits_list'),
     path('добавитьвыставку/', views.add_exhibition, name='add_exhibition'),
+    path('добавитькомнату/', views.add_museum_room, name='add_museum_room'),
 ]
