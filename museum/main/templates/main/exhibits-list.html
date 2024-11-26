@@ -56,17 +56,10 @@
             <td>{{ exhibit.name}}</td>
             <td>{{ exhibit.creation_year}}</td>
             <td>{{ exhibit.creator}}</td>
-            <td>
-                <div class="btn-group">
-                    <a href="#" class="btn btn-primary active" aria-current="page">Изменить</a>
-                    <a href="#" class="btn btn-primary">Удалить</a>
-                </div>
-            </td>
         </tr>
         {% endfor %}
         </tbody>
     </table>
-    <button type="button" class="btn btn-warning">Добавить</button>
 </div>
 
 <script src="{% static 'main/js/bootstrap.bundle.min.js'%}"></script>
