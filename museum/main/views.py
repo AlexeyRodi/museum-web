@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, DeleteView
 
 from .forms import ExhibitionForm, MuseumRoomForm
 from .models import Exhibition, MuseumRoom, Exhibit, Museum
@@ -29,6 +29,11 @@ class ExhibitionUpdateView(UpdateView):
     model = Exhibition
     template_name = 'main/edits/update-exhibition.html'
     form_class = ExhibitionForm
+
+class ExhibitionDeleteView(DeleteView):
+    model = Exhibition
+    template_name = 'main/edits/confirm-delete-exhibition.html'
+    success_url = '/выставки/'
 
 def add_exhibition(request):
     error = ''

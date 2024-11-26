@@ -10,5 +10,6 @@ urlpatterns = [
     path('добавитьвыставку/', views.add_exhibition, name='add_exhibition'),
     path('добавитькомнату/', views.add_museum_room, name='add_museum_room'),
     path('<int:pk>/изменитьвыставку/',views.ExhibitionUpdateView.as_view(), name='update_exhibition'),
-    path('<int:pk>/изменитькомнатумузея/',views.MuseumRoomUpdateView.as_view(), name='update_museum_room')
+    path('<int:pk>/изменитькомнатумузея/',views.MuseumRoomUpdateView.as_view(), name='update_museum_room'),
+    path('<int:pk>/удалить выставку/',views.ExhibitionDeleteView.as_view(), name='delete_exhibition')
 ]
