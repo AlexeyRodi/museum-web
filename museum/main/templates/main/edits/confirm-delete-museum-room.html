@@ -1,0 +1,23 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Удалить выставку</title>
+    <link href="{% static 'main/css/bootstrap.min.css'%}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'main/css/main.css'%}">
+</head>
+<body>
+<div class="container-fluid">
+    <h1 class="head-text">Вы уверены, что хотите удалить комнату?</h1>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Удалить</button>
+        <a href="{% url 'exhibitions_list' %}" class="btn btn-secondary">Отменить</a>
+    </form>
+</div>
+
+<script src="{% static 'main/js/bootstrap.bundle.min.js'%}"></script>
+</body>
+</html>
