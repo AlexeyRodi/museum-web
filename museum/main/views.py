@@ -1,4 +1,9 @@
-from django.shortcuts import render, redirect
+from tempfile import template
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.template.context_processors import request
+from django.urls import reverse
+from django.views.generic import UpdateView
 
 from .forms import ExhibitionForm, MuseumRoomForm
 from .models import Exhibition, Museum_Room, Exhibit, Museum
@@ -23,6 +28,11 @@ def exhibits_list(request, room_id):
     exhibits = Exhibit.objects.filter(room=room)
     return render(request, 'main/exhibits-list.html', {'exhibits': exhibits, 'room': room})
 
+
+class ExhibitionUpdateView(UpdateView):
+    model = Exhibition
+    template_name = 'main/edits/update-exhibition.html'
+    form_class = ExhibitionForm
 
 def add_exhibition(request):
     error = ''
@@ -63,5 +73,3 @@ def add_museum_room(request):
 
     }
     return render(request, 'main/edits/add-museum-room.html', data)
-
-

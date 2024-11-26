@@ -1,5 +1,5 @@
 from .models import Exhibition, Museum_Room
-from django.forms import ModelForm, TextInput, DateTimeInput
+from django.forms import ModelForm, TextInput, DateInput
 from django.forms.widgets import Select
 
 
@@ -11,13 +11,13 @@ class ExhibitionForm(ModelForm):
         widgets = {
             'name': TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Название'
+                'placeholder': 'Название',
             }),
-            'start_date': DateTimeInput(attrs={
+            'start_date': DateInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Начальная дата'
             }),
-            'end_date': DateTimeInput(attrs={
+            'end_date': DateInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Конечная дата'
             }),
@@ -44,10 +44,11 @@ class ExhibitionForm(ModelForm):
 
         }
 
+
 class MuseumRoomForm(ModelForm):
     class Meta:
         model = Museum_Room
-        fields = ['room_number','description','museum']
+        fields = ['room_number', 'description', 'museum']
 
         widgets = {
             'room_number': TextInput(attrs={

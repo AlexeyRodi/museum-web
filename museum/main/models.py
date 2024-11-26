@@ -46,6 +46,9 @@ class Exhibition(models.Model):
     responsible_person = models.CharField(max_length=255, blank=True, null=True)
     museum = models.ForeignKey('Museum', models.DO_NOTHING, blank=True, null=True)
 
+    def get_absolute_url(self):
+        return '/выставки/'
+
     class Meta:
         managed = False
         db_table = 'exhibition'
