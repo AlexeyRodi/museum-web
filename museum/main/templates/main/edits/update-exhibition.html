@@ -1,0 +1,64 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Обновить выставку</title>
+    <link href="{% static 'main/css/bootstrap.min.css'%}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'main/css/main.css'%}">
+</head>
+<body>
+<nav class="navbar fixed-top bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Музей Эрмитаж</a>
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Главная</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'rooms_list' %}">Комнаты</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'exhibitions_list' %}">Выставки</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">О нас</a>
+            </li>
+
+            <li class="nav-item">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a href="sign-in.html">
+                        <button type="button" class="btn btn-success">Войти</button>
+                    </a>
+                    <button type="button" class="btn btn-warning">Зарегистрироваться</button>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container-fluid">
+    <h1 class="head-text">Редактирование выставки: {{ exhibition.name }}</h1>
+    <form method="POST">
+        {% csrf_token %}
+
+        {{ form.name }}<br>
+        {{ form.start_date }}<br>
+        {{ form.end_date }}<br>
+        {{ form.country }}<br>
+        {{ form.city }}<br>
+        {{ form.venue }}<br>
+        {{ form.responsible_person }}<br>
+        <p>Выбрать музей</p>
+        {{ form.museum }}<br>
+        <span>{{ error }}</span>
+        <button type="submit" class="btn btn-warning">Изменить</button>
+    </form>
+</div>
+
+<script src="{% static 'main/js/bootstrap.bundle.min.js'%}"></script>
+</body>
+</html>
