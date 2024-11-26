@@ -1,10 +1,10 @@
-{% load static%}
+{% load static %}
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Комнаты</title>
+    <title>Обновить комнату музея</title>
     <link href="{% static 'main/css/bootstrap.min.css'%}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'main/css/main.css'%}">
 </head>
@@ -41,38 +41,18 @@
     </div>
 </nav>
 <div class="container-fluid">
-    <h1 class="head-text">Список комнат</h1>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Номер</th>
-            <th scope="col">Описание</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for room in rooms %}
-        <tr>
-            <td>{{ room.room_number }}</td>
-            <td>{{ room.description }}</td>
-            <td><a href="{% url 'exhibits_list' room_id=room.room_id %}">
-                <button type="button" class="btn btn-secondary">Экспонаты</button>
-            </a>
-            </td>
-            <td>
-                <div class="btn-group">
-                    <a href="{% url 'update_museum_room' room.room_id %}" class="btn btn-primary active" aria-current="page">Изменить</a>
-                    <a href="#" class="btn btn-primary">Удалить</a>
-                </div>
-            </td>
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <a href="{% url 'add_museum_room' %}"><button type="button" class="btn btn-warning">Добавить</button></a>
+    <h1 class="head-text">Редактирование комнаты {{ museumroom.room_number }} </h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.room_number }}<br>
+        {{ form.description }}<br>
+        <p>Выбрать музей</p>
+        {{ form.museum }}<br>
+        <span>{{ error }}</span>
+        <button type="submit" class="btn btn-warning">Изменить</button>
+    </form>
 </div>
 
-<script src="{% static 'main/js/bootstrap.bundle.min.js'%}"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+<script src="{% static 'main/js/bootstrap.bundle.min.js'%}"></script>
 </body>
 </html>

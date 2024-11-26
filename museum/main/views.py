@@ -1,12 +1,8 @@
-from tempfile import template
-
-from django.shortcuts import render, redirect, get_object_or_404
-from django.template.context_processors import request
-from django.urls import reverse
+from django.shortcuts import render, redirect
 from django.views.generic import UpdateView
 
 from .forms import ExhibitionForm, MuseumRoomForm
-from .models import Exhibition, Museum_Room, Exhibit, Museum
+from .models import Exhibition, MuseumRoom, Exhibit, Museum
 
 
 def index(request):
@@ -14,7 +10,7 @@ def index(request):
 
 
 def rooms_list(request):
-    rooms = Museum_Room.objects.all()
+    rooms = MuseumRoom.objects.all().order_by('room_number')
     return render(request, 'main/rooms-list.html', {'rooms': rooms})
 
 
@@ -24,7 +20,7 @@ def exhibitons_list(request):
 
 
 def exhibits_list(request, room_id):
-    room = Museum_Room.objects.get(room_id=room_id)
+    room = MuseumRoom.objects.get(room_id=room_id)
     exhibits = Exhibit.objects.filter(room=room)
     return render(request, 'main/exhibits-list.html', {'exhibits': exhibits, 'room': room})
 
@@ -53,6 +49,10 @@ def add_exhibition(request):
     }
     return render(request, 'main/edits/add-exhibition.html', data)
 
+class MuseumRoomUpdateView(UpdateView):
+    model = MuseumRoom
+    template_name = 'main/edits/update-museum-room.html'
+    form_class = MuseumRoomForm
 
 def add_museum_room(request):
     error = ''

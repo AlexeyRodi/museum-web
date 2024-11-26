@@ -1,4 +1,4 @@
-from .models import Exhibition, Museum_Room
+from .models import Exhibition, MuseumRoom
 from django.forms import ModelForm, TextInput, DateInput
 from django.forms.widgets import Select
 
@@ -47,7 +47,7 @@ class ExhibitionForm(ModelForm):
 
 class MuseumRoomForm(ModelForm):
     class Meta:
-        model = Museum_Room
+        model = MuseumRoom
         fields = ['room_number', 'description', 'museum']
 
         widgets = {

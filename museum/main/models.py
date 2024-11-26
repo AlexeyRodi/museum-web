@@ -15,7 +15,7 @@ class Exhibit(models.Model):
     description = models.TextField(blank=True, null=True)
     creation_year = models.IntegerField(blank=True, null=True)
     creator = models.CharField(max_length=255, blank=True, null=True)
-    room = models.ForeignKey('Museum_Room', models.DO_NOTHING, blank=True, null=True)
+    room = models.ForeignKey('MuseumRoom', models.DO_NOTHING, blank=True, null=True)
     user = models.ForeignKey('Users', models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
@@ -25,7 +25,7 @@ class Exhibit(models.Model):
         verbose_name_plural = 'Экспонаты'
 
 
-class Exhibit_Exhibition(models.Model):
+class ExhibitExhibition(models.Model):
     exhibit = models.OneToOneField(Exhibit, models.DO_NOTHING, primary_key=True)  # The composite primary key (exhibit_id, exhibition_id) found, that is not supported. The first column is selected.
     exhibition = models.ForeignKey('Exhibition', models.DO_NOTHING)
 
@@ -56,7 +56,7 @@ class Exhibition(models.Model):
         verbose_name_plural = 'Выставки'
 
 
-class Exhibition_Category(models.Model):
+class ExhibitionCategory(models.Model):
     category_id = models.AutoField(primary_key=True)
     category_name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
@@ -68,9 +68,9 @@ class Exhibition_Category(models.Model):
         verbose_name_plural = 'Категории выставок'
 
 
-class Exhibition_Exhibition_Category(models.Model):
+class ExhibitionExhibitionCategory(models.Model):
     exhibition = models.OneToOneField(Exhibition, models.DO_NOTHING, primary_key=True)  # The composite primary key (exhibition_id, category_id) found, that is not supported. The first column is selected.
-    category = models.ForeignKey(Exhibition_Category, models.DO_NOTHING)
+    category = models.ForeignKey(ExhibitionCategory, models.DO_NOTHING)
 
     class Meta:
         managed = False
@@ -93,7 +93,7 @@ class Museum(models.Model):
         return self.name
 
 
-class Museum_Room(models.Model):
+class MuseumRoom(models.Model):
     room_id = models.AutoField(primary_key=True)
     room_number = models.CharField(max_length=50)
     description = models.TextField(blank=True, null=True)
@@ -104,6 +104,9 @@ class Museum_Room(models.Model):
         db_table = 'museum_room'
         verbose_name = 'Комната музея'
         verbose_name_plural = 'Комнаты музея'
+
+    def get_absolute_url(self):
+        return '/комнаты/'
 
 
 class Users(models.Model):
