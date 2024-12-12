@@ -47,7 +47,7 @@ class Exhibition(models.Model):
     museum = models.ForeignKey('Museum', models.DO_NOTHING, blank=True, null=True)
 
     def get_absolute_url(self):
-        return '/выставки/'
+        return '/exhibitions/'
 
     class Meta:
         managed = False
@@ -106,7 +106,7 @@ class MuseumRoom(models.Model):
         verbose_name_plural = 'Комнаты музея'
 
     def get_absolute_url(self):
-        return '/комнаты/'
+        return '/rooms/'
 
 
 class Users(models.Model):

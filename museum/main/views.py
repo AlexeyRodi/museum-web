@@ -33,12 +33,12 @@ class ExhibitionUpdateView(UpdateView):
 class ExhibitionDeleteView(DeleteView):
     model = Exhibition
     template_name = 'main/edits/confirm-delete-exhibition.html'
-    success_url = '/выставки/'
+    success_url = '/exhibitions/'
 
 class MuseumRoomDeleteView(DeleteView):
     model = MuseumRoom
     template_name = 'main/edits/confirm-delete-museum-room.html'
-    success_url = '/комнаты/'
+    success_url = '/rooms/'
 
 def add_exhibition(request):
     error = ''
