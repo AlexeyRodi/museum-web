@@ -4,7 +4,6 @@ from django.views.generic import UpdateView, DeleteView
 from .forms import ExhibitionForm, MuseumRoomForm
 from .models import Exhibition, MuseumRoom, Exhibit, Museum
 
-
 def index(request):
     return render(request, 'main/index.html')
 
