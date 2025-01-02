@@ -105,6 +105,9 @@ class MuseumRoom(models.Model):
         verbose_name = 'Комната музея'
         verbose_name_plural = 'Комнаты музея'
 
+    def __str__(self):
+        return str(self.room_number)
+
     def get_absolute_url(self):
         return '/rooms/'
 

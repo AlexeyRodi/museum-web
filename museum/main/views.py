@@ -20,7 +20,9 @@ def exhibitons_list(request):
 
 
 def all_exhibits_list(request):
-    return render(request,'main/all-exhibits-list.html')
+    exhibits = Exhibit.objects.all()
+    return render(request, 'main/all-exhibits-list.html', {'exhibits': exhibits})
+
 
 def exhibits_list(request, room_id):
     room = MuseumRoom.objects.get(room_id=room_id)
