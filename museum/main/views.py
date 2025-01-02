@@ -73,6 +73,11 @@ class MuseumRoomUpdateView(UpdateView):
     template_name = 'main/edits/update-museum-room.html'
     form_class = MuseumRoomForm
 
+class ExhibitUpdateView(UpdateView):
+    model = Exhibit
+    template_name = 'main/edits/update-exhibit.html'
+    form_class = ExhibitForm
+
 
 def add_museum_room(request):
     error = ''

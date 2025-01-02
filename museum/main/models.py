@@ -18,6 +18,9 @@ class Exhibit(models.Model):
     room = models.ForeignKey('MuseumRoom', models.DO_NOTHING, blank=True, null=True)
     user = models.ForeignKey('Users', models.DO_NOTHING, blank=True, null=True)
 
+    def get_absolute_url(self):
+        return '/exhibits/'
+
     class Meta:
         managed = False
         db_table = 'exhibit'
