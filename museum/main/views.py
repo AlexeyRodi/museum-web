@@ -47,6 +47,11 @@ class MuseumRoomDeleteView(DeleteView):
     template_name = 'main/edits/confirm-delete-museum-room.html'
     success_url = '/rooms/'
 
+class ExhibitDeleteView(DeleteView):
+    model = Exhibit
+    template_name = "main/edits/confirm-delete-exhibit.html"
+    success_url = '/exhibits/'
+
 
 def add_exhibition(request):
     error = ''
