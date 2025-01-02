@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import UpdateView, DeleteView
 
-from .forms import ExhibitionForm, MuseumRoomForm
+from .forms import ExhibitionForm, MuseumRoomForm, ExhibitForm
 from .models import Exhibition, MuseumRoom, Exhibit, Museum
 
 
@@ -14,7 +14,7 @@ def rooms_list(request):
     return render(request, 'main/rooms-list.html', {'rooms': rooms})
 
 
-def exhibitons_list(request):
+def exhibitions_list(request):
     exhibitions = Exhibition.objects.all()
     return render(request, 'main/exhibitions-list.html', {'exhibitions': exhibitions})
 
@@ -93,3 +93,24 @@ def add_museum_room(request):
 
     }
     return render(request, 'main/edits/add-museum-room.html', data)
+
+
+def add_exhibit(request):
+    error = ''
+    exhibits = Exhibit.objects.all()
+    if request.method == 'POST':
+        form = ExhibitForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('all_exhibits_list')
+        else:
+            error = 'Форма была неверной'
+
+    form = ExhibitForm()
+    data = {
+        'exhibits': exhibits,
+        'form': form,
+        'error': error
+
+    }
+    return render(request, 'main/edits/add-exhibit.html', data)

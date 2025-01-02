@@ -1,10 +1,10 @@
-{% load static%}
+{% load static %}
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Экспонаты</title>
+    <title>Добавить экспонат</title>
     <link href="{% static 'main/css/bootstrap.min.css'%}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'main/css/main.css'%}">
 </head>
@@ -41,37 +41,18 @@
     </div>
 </nav>
 <div class="container-fluid">
-    <h1 class="head-text">Список экспонатов</h1>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Название</th>
-            <th scope="col">Дата</th>
-            <th scope="col">Создатель</th>
-            <th scope="col">Номер комнаты</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for exhibit in exhibits %}
-        <tr>
-            <td>{{ exhibit.name}}</td>
-            <td>{{ exhibit.creation_year}}</td>
-            <td>{{ exhibit.creator}}</td>
-            <td>{{ exhibit.room}}</td>
-            <td>
-                <div class="btn-group">
-                    <a href="#" class="btn btn-primary active"
-                       aria-current="page">Изменить</a>
-                    <a href="#" class="btn btn-primary">Удалить</a>
-                </div>
-            </td>
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <a href="{% url 'add_exhibit' %}">
-        <button type="button" class="btn btn-warning">Добавить</button>
-    </a>
+    <h1 class="head-text">Добавить экспонат</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.name }}<br>
+        {{ form.description }}<br>
+        {{ form.creation_year }}<br>
+        {{ form.creator }}<br>
+        <p>Выбрать комнату</p>
+        {{ form.room }}<br>
+        <span>{{ error }}</span>
+        <button type="submit" class="btn btn-warning">Добавить</button>
+    </form>
 </div>
 
 <script src="{% static 'main/js/bootstrap.bundle.min.js'%}"></script>

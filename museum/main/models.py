@@ -104,6 +104,7 @@ class MuseumRoom(models.Model):
         db_table = 'museum_room'
         verbose_name = 'Комната музея'
         verbose_name_plural = 'Комнаты музея'
+        ordering = ['room_number']
 
     def __str__(self):
         return str(self.room_number)
