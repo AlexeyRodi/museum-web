@@ -42,6 +42,17 @@
 </nav>
 <div class="container-fluid">
     <h1 class="head-text">Список экспонатов</h1>
+    <div class="dropdown mb-3">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-bs-toggle="dropdown" aria-expanded="false">
+            Сортировать
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li><a class="dropdown-item" href="?sort=date">По дате</a></li>
+            <li><a class="dropdown-item" href="?sort=name">По названию (от А до Я)</a></li>
+            <li><a class="dropdown-item" href="?sort=room">По номеру комнаты</a></li>
+        </ul>
+    </div>
     <table class="table">
         <thead>
         <tr>

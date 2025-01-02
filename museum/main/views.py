@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import UpdateView, DeleteView
+from django.db.models.functions import Substr
 
 from .forms import ExhibitionForm, MuseumRoomForm, ExhibitForm, ExhibitMuseumForm
 from .models import Exhibition, MuseumRoom, Exhibit, Museum
@@ -20,7 +21,17 @@ def exhibitions_list(request):
 
 
 def all_exhibits_list(request):
-    exhibits = Exhibit.objects.all()
+    sort = request.GET.get('sort', '')
+
+    # Сортировка по выбранному параметру
+    if sort == 'date':
+        exhibits = Exhibit.objects.order_by('creation_year')
+    elif sort == 'name':
+        exhibits = Exhibit.objects.order_by(Substr('name', 1, 1))
+    elif sort == 'room':
+        exhibits = Exhibit.objects.order_by('room__room_number')
+    else:
+        exhibits = Exhibit.objects.all()
     return render(request, 'main/all-exhibits-list.html', {'exhibits': exhibits})
 
 
