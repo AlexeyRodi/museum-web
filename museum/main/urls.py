@@ -10,6 +10,7 @@ urlpatterns = [
     path('exhibitions/add/', views.add_exhibition, name='add_exhibition'),
     path('rooms/add/', views.add_museum_room, name='add_museum_room'),
     path('exhibits/add/', views.add_exhibit, name='add_exhibit'),
+    path('add_exhibit_to_room/<int:room_id>/', views.add_exhibit_to_room, name='add_exhibit_to_room'),
     path('<int:pk>/exhibitions/edit/',views.ExhibitionUpdateView.as_view(), name='update_exhibition'),
     path('<int:pk>/rooms/edit/',views.MuseumRoomUpdateView.as_view(), name='update_museum_room'),
     path('<int:pk>/exhibits/edit/',views.ExhibitUpdateView.as_view(), name='update_exhibit'),

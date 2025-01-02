@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import UpdateView, DeleteView
 
-from .forms import ExhibitionForm, MuseumRoomForm, ExhibitForm
+from .forms import ExhibitionForm, MuseumRoomForm, ExhibitForm, ExhibitMuseumForm
 from .models import Exhibition, MuseumRoom, Exhibit, Museum
 
 
@@ -47,6 +47,7 @@ class MuseumRoomDeleteView(DeleteView):
     template_name = 'main/edits/confirm-delete-museum-room.html'
     success_url = '/rooms/'
 
+
 class ExhibitDeleteView(DeleteView):
     model = Exhibit
     template_name = "main/edits/confirm-delete-exhibit.html"
@@ -77,6 +78,7 @@ class MuseumRoomUpdateView(UpdateView):
     model = MuseumRoom
     template_name = 'main/edits/update-museum-room.html'
     form_class = MuseumRoomForm
+
 
 class ExhibitUpdateView(UpdateView):
     model = Exhibit
@@ -124,3 +126,25 @@ def add_exhibit(request):
 
     }
     return render(request, 'main/edits/add-exhibit.html', data)
+
+
+def add_exhibit_to_room(request, room_id):
+    error = ''
+    room = get_object_or_404(MuseumRoom, pk=room_id)  # Получаем комнату по ID
+
+    if request.method == "POST":
+        form = ExhibitMuseumForm(request.POST)
+        if form.is_valid():
+            exhibit = form.save(commit=False)  # Не сохраняем сразу, чтобы добавить комнату
+            exhibit.room = room  # Привязываем экспонат к выбранной комнате
+            exhibit.save()
+            return redirect('exhibits_list',room_id=room_id)  # Перенаправление на список комнат
+    else:
+        form = ExhibitMuseumForm()
+        data = {
+            'room': room,
+            'form': form,
+            'error': error
+        }
+
+    return render(request, 'main/edits/add-exhibit-to-room.html', data)

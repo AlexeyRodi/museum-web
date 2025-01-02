@@ -95,3 +95,31 @@ class ExhibitForm(ModelForm):
                 'class': 'form-control'
             })
         }
+
+
+class ExhibitMuseumForm(ModelForm):
+    class Meta:
+        model = Exhibit
+        fields = ['name', 'description', 'creation_year', 'creator']
+
+        widgets = {
+            'name': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Название'
+            }),
+
+            'description': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Описание'
+            }),
+
+            'creation_year': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Дата создания'
+            }),
+
+            'creator': TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Создатель'
+            }),
+        }
