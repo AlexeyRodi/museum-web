@@ -130,15 +130,15 @@ def add_exhibit(request):
 
 def add_exhibit_to_room(request, room_id):
     error = ''
-    room = get_object_or_404(MuseumRoom, pk=room_id)  # Получаем комнату по ID
+    room = get_object_or_404(MuseumRoom, pk=room_id)
 
     if request.method == "POST":
         form = ExhibitMuseumForm(request.POST)
         if form.is_valid():
-            exhibit = form.save(commit=False)  # Не сохраняем сразу, чтобы добавить комнату
-            exhibit.room = room  # Привязываем экспонат к выбранной комнате
+            exhibit = form.save(commit=False)
+            exhibit.room = room
             exhibit.save()
-            return redirect('exhibits_list',room_id=room_id)  # Перенаправление на список комнат
+            return redirect('exhibits_list', room_id=room_id)
     else:
         form = ExhibitMuseumForm()
         data = {
