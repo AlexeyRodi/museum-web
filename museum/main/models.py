@@ -22,14 +22,14 @@ class Exhibit(models.Model):
         return '/exhibits/'
 
     class Meta:
-        managed = False
         db_table = 'exhibit'
         verbose_name = 'Экспонат'
         verbose_name_plural = 'Экспонаты'
 
 
 class ExhibitExhibition(models.Model):
-    exhibit = models.OneToOneField(Exhibit, models.DO_NOTHING, primary_key=True)  # The composite primary key (exhibit_id, exhibition_id) found, that is not supported. The first column is selected.
+    exhibit = models.OneToOneField(Exhibit, models.DO_NOTHING,
+                                   primary_key=True)  # The composite primary key (exhibit_id, exhibition_id) found, that is not supported. The first column is selected.
     exhibition = models.ForeignKey('Exhibition', models.DO_NOTHING)
 
     class Meta:
@@ -48,12 +48,12 @@ class Exhibition(models.Model):
     venue = models.CharField(max_length=255, blank=True, null=True)
     responsible_person = models.CharField(max_length=255, blank=True, null=True)
     museum = models.ForeignKey('Museum', models.DO_NOTHING, blank=True, null=True)
+    image = models.ImageField(upload_to='exhibitions/', blank=True, null=True)
 
     def get_absolute_url(self):
         return '/exhibitions/'
 
     class Meta:
-        managed = False
         db_table = 'exhibition'
         verbose_name = 'Выставка'
         verbose_name_plural = 'Выставки'
@@ -72,7 +72,8 @@ class ExhibitionCategory(models.Model):
 
 
 class ExhibitionExhibitionCategory(models.Model):
-    exhibition = models.OneToOneField(Exhibition, models.DO_NOTHING, primary_key=True)  # The composite primary key (exhibition_id, category_id) found, that is not supported. The first column is selected.
+    exhibition = models.OneToOneField(Exhibition, models.DO_NOTHING,
+                                      primary_key=True)  # The composite primary key (exhibition_id, category_id) found, that is not supported. The first column is selected.
     category = models.ForeignKey(ExhibitionCategory, models.DO_NOTHING)
 
     class Meta:
@@ -127,4 +128,3 @@ class Users(models.Model):
         db_table = 'users'
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
-
