@@ -37,7 +37,18 @@ def all_exhibits_list(request):
 
 def exhibits_list(request, room_id):
     room = MuseumRoom.objects.get(room_id=room_id)
-    exhibits = Exhibit.objects.filter(room=room)
+    sort = request.GET.get('sort', '')
+
+    # Сортировка по выбранному параметру
+    if sort == 'date':
+        exhibits = Exhibit.objects.order_by('creation_year').filter(room=room)
+    elif sort == 'name':
+        exhibits = Exhibit.objects.order_by(Substr('name', 1, 1)).filter(room=room)
+    elif sort == 'room':
+        exhibits = Exhibit.objects.order_by('room__room_number').filter(room=room)
+    else:
+        exhibits = Exhibit.objects.filter(room=room)
+
     return render(request, 'main/exhibits-list.html', {'exhibits': exhibits, 'room': room})
 
 
