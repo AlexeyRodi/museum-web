@@ -4,9 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Выставки</title>
+    <title>Выставка: {{ exhibition.name }}</title>
     <link href="{% static 'main/css/bootstrap.min.css'%}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'main/css/main.css'%}">
+    <link href="{% static 'main/css/images.css' %}" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar fixed-top bg-body-tertiary">
@@ -40,32 +41,25 @@
         </ul>
     </div>
 </nav>
-<div class="container-fluid">
-    <h1 class="head-text">Список выставок</h1>
-    <table class="table">
-        <tbody>
-        {% for exhibition in exhibitions %}
-        <tr>
-            <td>{{ exhibition.name }}</td>
-            <td>
-                <a href="{% url 'exhibition_detail' exhibition.exhibition_id %}">
-                    <button type="button" class="btn btn-secondary">Подробнее</button>
-                </a>
-            </td>
-            <td>
-                <div class="btn-group">
-                    <a href="{% url 'update_exhibition' exhibition.exhibition_id %}" class="btn btn-primary active"
-                       aria-current="page">Изменить</a>
-                    <a href="{% url 'delete_exhibition' exhibition.exhibition_id %}" class="btn btn-primary">Удалить</a>
-                </div>
-            </td>
-        </tr>
-        {% endfor %}
 
-        </tbody>
-    </table>
-    <a href="{% url 'add_exhibition' %}">
-        <button type="button" class="btn btn-warning">Добавить</button>
+<div class="container-fluid">
+    <h1 class="head-text">{{ exhibition.name }}</h1>
+
+    {% if exhibition.image %}
+        <img class="image" src="{{ exhibition.image.url }}" alt="{{ exhibition.name }}" class="img-fluid"><br><br>
+    {% else %}
+        <p>Изображение не добавлено</p>
+    {% endif %}
+
+    <p><strong>Дата начала:</strong> {{ exhibition.start_date }}</p>
+    <p><strong>Дата окончания:</strong> {{ exhibition.end_date }}</p>
+    <p><strong>Страна:</strong> {{ exhibition.country }}</p>
+    <p><strong>Город:</strong> {{ exhibition.city }}</p>
+    <p><strong>Место проведения:</strong> {{ exhibition.venue }}</p>
+    <p><strong>Ответственное лицо:</strong> {{ exhibition.responsible_person }}</p>
+
+    <a href="{% url 'exhibitions_list' %}">
+        <button type="button" class="btn btn-secondary">Назад к списку</button>
     </a>
 </div>
 

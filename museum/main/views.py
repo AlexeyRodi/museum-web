@@ -170,3 +170,9 @@ def add_exhibit_to_room(request, room_id):
         }
 
     return render(request, 'main/edits/add-exhibit-to-room.html', data)
+
+
+def exhibition_detail(request, exhibition_id):
+    exhibition = get_object_or_404(Exhibition, exhibition_id=exhibition_id)
+    return render(request, 'main/exhibition-detail.html',{'exhibition': exhibition})
+
