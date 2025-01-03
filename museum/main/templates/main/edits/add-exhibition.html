@@ -42,7 +42,7 @@
 </nav>
 <div class="container-fluid">
     <h1 class="head-text">Добавить выставку</h1>
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.name }}<br>
         {{ form.start_date }}<br>
@@ -53,6 +53,8 @@
         {{ form.responsible_person }}<br>
         <p>Выбрать музей</p>
         {{ form.museum }}<br>
+        <p>Выберите изображение для выставки:</p>
+        {{ form.image }}<br><br>
         <span>{{ error }}</span>
         <button type="submit" class="btn btn-warning">Добавить</button>
     </form>

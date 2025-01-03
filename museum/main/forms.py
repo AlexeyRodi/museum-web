@@ -1,12 +1,12 @@
 from .models import Exhibition, MuseumRoom, Exhibit
 from django.forms import ModelForm, TextInput, DateInput
-from django.forms.widgets import Select
+from django.forms.widgets import Select, ClearableFileInput
 
 
 class ExhibitionForm(ModelForm):
     class Meta:
         model = Exhibition
-        fields = ['name', 'start_date', 'end_date', 'country', 'city', 'venue', 'responsible_person', 'museum']
+        fields = ['name', 'start_date', 'end_date', 'country', 'city', 'venue', 'responsible_person', 'museum', 'image']
 
         widgets = {
             'name': TextInput(attrs={
@@ -40,6 +40,11 @@ class ExhibitionForm(ModelForm):
 
             'museum': Select(attrs={
                 'class': 'form-control',
+            }),
+
+            'image': ClearableFileInput(attrs={
+                'class': 'form-control-file',
+                'accept': 'image/*',
             }),
 
         }

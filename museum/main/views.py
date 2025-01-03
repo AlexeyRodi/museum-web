@@ -80,7 +80,7 @@ def add_exhibition(request):
     error = ''
     museums = Museum.objects.all()
     if request.method == 'POST':
-        form = ExhibitionForm(request.POST)
+        form = ExhibitionForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('exhibitions_list')
