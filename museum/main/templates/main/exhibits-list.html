@@ -67,6 +67,9 @@
             <td>{{ exhibit.name}}</td>
             <td>{{ exhibit.creation_year}}</td>
             <td>{{ exhibit.creator}}</td>
+            <td><a href="#">
+                <button type="button" class="btn btn-secondary">Подробнее</button>
+            </a>
             <td>
                 <div class="btn-group">
                     <a href="{% url 'update_exhibit' exhibit.exhibit_id %}" class="btn btn-primary active"
