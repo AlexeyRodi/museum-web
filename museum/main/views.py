@@ -133,7 +133,7 @@ def add_exhibit(request):
     error = ''
     exhibits = Exhibit.objects.all()
     if request.method == 'POST':
-        form = ExhibitForm(request.POST)
+        form = ExhibitForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('all_exhibits_list')
@@ -155,7 +155,7 @@ def add_exhibit_to_room(request, room_id):
     room = get_object_or_404(MuseumRoom, pk=room_id)
 
     if request.method == "POST":
-        form = ExhibitMuseumForm(request.POST)
+        form = ExhibitMuseumForm(request.POST, request.FILES)
         if form.is_valid():
             exhibit = form.save(commit=False)
             exhibit.room = room

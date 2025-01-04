@@ -42,12 +42,14 @@
 </nav>
 <div class="container-fluid">
     <h1 class="head-text">Добавить экспонат в комнату {{room.room_id}} </h1>
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.name }}<br>
         {{ form.description }}<br>
         {{ form.creation_year }}<br>
         {{ form.creator }}<br>
+        <p>Выберите изображение для выставки:</p>
+        {{ form.image }}<br><br>
         <span>{{ error }}</span>
         <button type="submit" class="btn btn-warning">Добавить</button>
     </form>

@@ -73,7 +73,7 @@ class MuseumRoomForm(ModelForm):
 class ExhibitForm(ModelForm):
     class Meta:
         model = Exhibit
-        fields = ['name', 'description', 'creation_year', 'creator', 'room']
+        fields = ['name', 'description', 'creation_year', 'creator', 'room', 'image']
 
         widgets = {
             'name': TextInput(attrs={
@@ -98,14 +98,20 @@ class ExhibitForm(ModelForm):
 
             'room': Select(attrs={
                 'class': 'form-control'
-            })
+            }),
+
+            'image': ClearableFileInput(attrs={
+                'class': 'form-control-file',
+                'accept': 'image/*',
+            }),
+
         }
 
 
 class ExhibitMuseumForm(ModelForm):
     class Meta:
         model = Exhibit
-        fields = ['name', 'description', 'creation_year', 'creator']
+        fields = ['name', 'description', 'creation_year', 'creator', 'image']
 
         widgets = {
             'name': TextInput(attrs={
@@ -126,5 +132,10 @@ class ExhibitMuseumForm(ModelForm):
             'creator': TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Создатель'
+            }),
+
+            'image': ClearableFileInput(attrs={
+                'class': 'form-control-file',
+                'accept': 'image/*',
             }),
         }
