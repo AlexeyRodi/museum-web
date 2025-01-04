@@ -67,7 +67,7 @@
             <td>{{ exhibit.name}}</td>
             <td>{{ exhibit.creation_year}}</td>
             <td>{{ exhibit.creator}}</td>
-            <td><a href="#">
+            <td><a href="{% url 'exhibit_room_detail' room.room_id exhibit.exhibit_id%}">
                 <button type="button" class="btn btn-secondary">Подробнее</button>
             </a>
             <td>

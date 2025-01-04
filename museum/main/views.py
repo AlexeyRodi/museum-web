@@ -174,5 +174,14 @@ def add_exhibit_to_room(request, room_id):
 
 def exhibition_detail(request, exhibition_id):
     exhibition = get_object_or_404(Exhibition, exhibition_id=exhibition_id)
-    return render(request, 'main/exhibition-detail.html',{'exhibition': exhibition})
+    return render(request, 'main/exhibition-detail.html', {'exhibition': exhibition})
 
+
+def exhibit_detail(request, exhibit_id):
+    exhibit = get_object_or_404(Exhibit, exhibit_id=exhibit_id)
+    return render(request, 'main/exhibit-detail.html', {'exhibit': exhibit})
+
+def exhibit_room_detail(request, exhibit_id, room_id):
+    exhibit = get_object_or_404(Exhibit, exhibit_id=exhibit_id)
+    room = get_object_or_404(MuseumRoom, room_id=room_id)
+    return render(request, 'main/exhibit-room-detail.html', {'exhibit': exhibit, 'room': room})
