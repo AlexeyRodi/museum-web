@@ -17,6 +17,7 @@ class Exhibit(models.Model):
     creator = models.CharField(max_length=255, blank=True, null=True)
     room = models.ForeignKey('MuseumRoom', models.DO_NOTHING, blank=True, null=True)
     user = models.ForeignKey('Users', models.DO_NOTHING, blank=True, null=True)
+    image = models.ImageField(upload_to='exhibits/', blank=True, null=True)
 
     def get_absolute_url(self):
         return '/exhibits/'
