@@ -42,7 +42,7 @@
 </nav>
 <div class="container-fluid">
     <h1 class="head-text">Редактирование экспоната {{ exhibit.name }} </h1>
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.name }}<br>
         {{ form.description }}<br>
@@ -50,7 +50,7 @@
         {{ form.creator }}<br>
         <p>Выбрать комнату</p>
         {{ form.room }}<br>
-        <p>Выберите изображение для выставки:</p>
+        <p>Выберите изображение для экспоната:</p>
         {{ form.image }}<br><br>
         <span>{{ error }}</span>
         <button type="submit" class="btn btn-warning">Изменить</button>
