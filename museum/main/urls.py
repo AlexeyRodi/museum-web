@@ -25,5 +25,6 @@ urlpatterns = [
 
     path('api/exhibitions/', views_api.ExhibitionsAPI.as_view(), name='exhibitions-list-api'),
     path('api/rooms/', views_api.MuseumRoomAPI.as_view(), name='museum-rooms-list-api'),
+    path('api/exhibits/', views_api.ExhibitAPI.as_view(), name='exhibits-list-api')
 
 ]
