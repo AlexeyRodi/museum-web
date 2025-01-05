@@ -19,12 +19,11 @@ urlpatterns = [
     path('rooms/delete/<int:pk>', views.MuseumRoomDeleteView.as_view(), name='delete_museum_room'),
     path('exhibits/delete/<int:pk>', views.ExhibitDeleteView.as_view(), name='delete_exhibit'),
     path('exhibitions/<int:exhibition_id>/', views.exhibition_detail, name='exhibition_detail'),
-    path('exhibits/<int:exhibit_id>/',views.exhibit_detail,name='exhibit_detail'),
-    path('rooms/<int:room_id>/exhibits/<int:exhibit_id>/',views.exhibit_room_detail,name='exhibit_room_detail'),
-
+    path('exhibits/<int:exhibit_id>/', views.exhibit_detail, name='exhibit_detail'),
+    path('rooms/<int:room_id>/exhibits/<int:exhibit_id>/', views.exhibit_room_detail, name='exhibit_room_detail'),
 
     path('api/exhibitions/', views_api.ExhibitionsAPI.as_view(), name='exhibitions-list-api'),
     path('api/rooms/', views_api.MuseumRoomAPI.as_view(), name='museum-rooms-list-api'),
-    path('api/exhibits/', views_api.ExhibitAPI.as_view(), name='exhibits-list-api')
-
+    path('api/exhibits/', views_api.ExhibitAPI.as_view(), name='exhibits-list-api'),
+    path('api/exhibits/<int:pk>/', views_api.ExhibitDetailAPI.as_view(), name='exhibit-detail'),
 ]

@@ -18,4 +18,4 @@ class MuseumRoomSerializer(serializers.ModelSerializer):
 class ExhibitSerializer(serializers.ModelSerializer):
     class Meta:
         model = Exhibit
-        fields = ['name', 'description', 'creation_year', 'creator', 'room']
+        fields = ['exhibit_id','name', 'description', 'creation_year', 'creator', 'room', 'image']
