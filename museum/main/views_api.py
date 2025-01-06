@@ -1,3 +1,5 @@
+from django.core.serializers import serialize
+
 from .models import Exhibition, MuseumRoom, Exhibit
 
 from rest_framework.response import Response
@@ -31,4 +33,11 @@ class ExhibitDetailAPI(APIView):
     def get(self, request, pk):
         exhibit = get_object_or_404(Exhibit, pk=pk)
         serializer = ExhibitSerializer(exhibit)
+        return Response(serializer.data)
+
+
+class ExhibitionDetailAPI(APIView):
+    def get(self, request, pk):
+        exhibition = get_object_or_404(Exhibition, pk=pk)
+        serializer = ExhibitionsSerializer(exhibition)
         return Response(serializer.data)
