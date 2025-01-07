@@ -1,4 +1,6 @@
 from django.core.serializers import serialize
+from rest_framework import status
+from rest_framework.generics import UpdateAPIView
 
 from .models import Exhibition, MuseumRoom, Exhibit
 
@@ -41,3 +43,7 @@ class ExhibitionDetailAPI(APIView):
         exhibition = get_object_or_404(Exhibition, pk=pk)
         serializer = ExhibitionsSerializer(exhibition)
         return Response(serializer.data)
+
+class ExhibitUpdateView(UpdateAPIView):
+    queryset = Exhibit.objects.all()
+    serializer_class = ExhibitSerializer

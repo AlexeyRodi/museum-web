@@ -26,5 +26,6 @@ urlpatterns = [
     path('api/rooms/', views_api.MuseumRoomAPI.as_view(), name='museum-rooms-list-api'),
     path('api/exhibits/', views_api.ExhibitAPI.as_view(), name='exhibits-list-api'),
     path('api/exhibits/<int:pk>/', views_api.ExhibitDetailAPI.as_view(), name='exhibit-detail'),
-    path('api/exhibitions/<int:pk>/', views_api.ExhibitionDetailAPI.as_view(), name='exhibition-detail')
+    path('api/exhibitions/<int:pk>/', views_api.ExhibitionDetailAPI.as_view(), name='exhibition-detail'),
+    path('api/exhibits/update/<int:pk>/', views_api.ExhibitUpdateView.as_view()),
 ]
