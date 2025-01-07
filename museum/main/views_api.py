@@ -1,3 +1,6 @@
+import base64
+
+from django.core.files.base import ContentFile
 from django.core.serializers import serialize
 from rest_framework import status
 from rest_framework.generics import UpdateAPIView
