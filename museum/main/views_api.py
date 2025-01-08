@@ -48,13 +48,16 @@ class ExhibitionDetailAPI(APIView):
         serializer = ExhibitionsSerializer(exhibition)
         return Response(serializer.data)
 
+
 class ExhibitUpdateView(UpdateAPIView):
     queryset = Exhibit.objects.all()
     serializer_class = ExhibitSerializer
 
+
 class ExhibitionUpdateView(UpdateAPIView):
     queryset = Exhibition.objects.all()
     serializer_class = ExhibitionsSerializer
+
 
 class MuseumRoomUpdateView(UpdateAPIView):
     queryset = MuseumRoom.objects.all()
@@ -65,13 +68,16 @@ class ExhibitCreateAPIView(ListCreateAPIView):
     queryset = Exhibit.objects.all()
     serializer_class = ExhibitSerializer
 
+
 class ExhibitionCreateAPIView(ListCreateAPIView):
     queryset = Exhibition.objects.all()
     serializer_class = ExhibitionsSerializer
 
+
 class MuseumRoomCreateAPIView(ListCreateAPIView):
     queryset = MuseumRoom.objects.all()
     serializer_class = MuseumRoomSerializer
+
 
 class ExhibitDeleteAPI(APIView):
     def delete(self, request, pk, format=None):
@@ -82,6 +88,7 @@ class ExhibitDeleteAPI(APIView):
         except Exhibit.DoesNotExist:
             return Response({"error": "Exhibit not found"}, status=status.HTTP_404_NOT_FOUND)
 
+
 class ExhibitionDeleteAPI(APIView):
     def delete(self, request, pk, format=None):
         try:
@@ -90,6 +97,16 @@ class ExhibitionDeleteAPI(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
         except Exhibition.DoesNotExist:
             return Response({"error": "Exhibition not found"}, status=status.HTTP_404_NOT_FOUND)
+
+
+class MuseumRoomDeleteAPI(APIView):
+    def delete(self, request, pk, format=None):
+        try:
+            room = MuseumRoom.objects.get(pk=pk)
+            room.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except Exhibition.DoesNotExist:
+            return Response({"error": "Room not found"}, status=status.HTTP_404_NOT_FOUND)
 
 
 class MuseumRoomDetails(APIView):
