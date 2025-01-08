@@ -83,18 +83,27 @@ class ExhibitionDeleteAPI(APIView):
         except Exhibition.DoesNotExist:
             return Response({"error": "Exhibition not found"}, status=status.HTTP_404_NOT_FOUND)
 
-class ExhibitsByRoomAPI(APIView):
-    def get(self, request, room_number):
+
+class MuseumRoomDetails(APIView):
+    def get(self, request, room_id):
         try:
-            # Получаем комнату по номеру
-            room = MuseumRoom.objects.get(room_number=room_number)
-            # Получаем экспонаты, относящиеся к этой комнате
-            exhibits = Exhibit.objects.filter(room=room)
-            # Сериализуем данные
-            serializer = ExhibitSerializer(exhibits, many=True)
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            room = MuseumRoom.objects.get(room_id=room_id)
+            serializer = MuseumRoomSerializer(room)
+            return Response(serializer.data)
         except MuseumRoom.DoesNotExist:
             return Response(
-                {"error": "Комната не найдена"},
-                status=status.HTTP_404_NOT_FOUND
+                {"error": "Комната не найдена"}, status=status.HTTP_404_NOT_FOUND
+            )
+
+
+class ExhibitsByRoom(APIView):
+    def get(self, request, room_id):
+        try:
+            room = MuseumRoom.objects.get(room_id=room_id)
+            exhibits = room.exhibit_set.all()  # Используем related_name "exhibits"
+            serializer = ExhibitSerializer(exhibits, many=True)
+            return Response(serializer.data)
+        except MuseumRoom.DoesNotExist:
+            return Response(
+                {"error": "Комната не найдена"}, status=status.HTTP_404_NOT_FOUND
             )
