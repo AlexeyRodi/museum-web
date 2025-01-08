@@ -64,3 +64,12 @@ class ExhibitCreateAPIView(ListCreateAPIView):
 class ExhibitionCreateAPIView(ListCreateAPIView):
     queryset = Exhibition.objects.all()
     serializer_class = ExhibitionsSerializer
+
+class ExhibitDeleteAPI(APIView):
+    def delete(self, request, pk, format=None):
+        try:
+            exhibit = Exhibit.objects.get(pk=pk)
+            exhibit.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except Exhibit.DoesNotExist:
+            return Response({"error": "Exhibit not found"}, status=status.HTTP_404_NOT_FOUND)

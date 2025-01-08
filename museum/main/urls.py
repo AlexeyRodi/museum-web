@@ -30,5 +30,6 @@ urlpatterns = [
     path('api/exhibits/update/<int:pk>/', views_api.ExhibitUpdateView.as_view()),
     path('api/exhibitions/update/<int:pk>/', views_api.ExhibitionUpdateView.as_view()),
     path('api/exhibits/add/', views_api.ExhibitCreateAPIView.as_view()),
-    path('api/exhibitions/add/', views_api.ExhibitionCreateAPIView.as_view())
+    path('api/exhibitions/add/', views_api.ExhibitionCreateAPIView.as_view()),
+    path('api/exhibits/delete/<int:pk>/', views_api.ExhibitDeleteAPI.as_view())
 ]
