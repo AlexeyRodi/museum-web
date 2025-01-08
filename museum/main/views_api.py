@@ -65,6 +65,10 @@ class ExhibitionCreateAPIView(ListCreateAPIView):
     queryset = Exhibition.objects.all()
     serializer_class = ExhibitionsSerializer
 
+class MuseumRoomCreateAPIView(ListCreateAPIView):
+    queryset = MuseumRoom.objects.all()
+    serializer_class = MuseumRoomSerializer
+
 class ExhibitDeleteAPI(APIView):
     def delete(self, request, pk, format=None):
         try:
