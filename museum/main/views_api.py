@@ -3,7 +3,8 @@ import base64
 from django.core.files.base import ContentFile
 from django.core.serializers import serialize
 from rest_framework import status
-from rest_framework.generics import UpdateAPIView
+from rest_framework.generics import UpdateAPIView, ListCreateAPIView
+from rest_framework.viewsets import ModelViewSet
 
 from .models import Exhibition, MuseumRoom, Exhibit
 
@@ -52,5 +53,14 @@ class ExhibitUpdateView(UpdateAPIView):
     serializer_class = ExhibitSerializer
 
 class ExhibitionUpdateView(UpdateAPIView):
+    queryset = Exhibition.objects.all()
+    serializer_class = ExhibitionsSerializer
+
+
+class ExhibitCreateAPIView(ListCreateAPIView):
+    queryset = Exhibit.objects.all()
+    serializer_class = ExhibitSerializer
+
+class ExhibitionCreateAPIView(ListCreateAPIView):
     queryset = Exhibition.objects.all()
     serializer_class = ExhibitionsSerializer

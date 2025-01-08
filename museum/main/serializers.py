@@ -38,6 +38,12 @@ class ExhibitionsSerializer(serializers.ModelSerializer):
             return obj.image.url
         return None
 
+    def create(self, validated_data):
+        image_upload = validated_data.pop('image_upload', None)
+        if image_upload:
+            validated_data['image'] = self.validate_image_upload(image_upload)
+        return super().create(validated_data)
+
     def update(self, instance, validated_data):
         image_upload = validated_data.pop('image_upload', None)
 
@@ -90,6 +96,12 @@ class ExhibitSerializer(serializers.ModelSerializer):
         if obj.image:
             return obj.image.url
         return None
+
+    def create(self, validated_data):
+        image_upload = validated_data.pop('image_upload', None)
+        if image_upload:
+            validated_data['image'] = self.validate_image_upload(image_upload)
+        return super().create(validated_data)
 
     def update(self, instance, validated_data):
         image_upload = validated_data.pop('image_upload', None)
