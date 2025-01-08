@@ -35,5 +35,6 @@ urlpatterns = [
     path('api/exhibitions/delete/<int:pk>/', views_api.ExhibitionDeleteAPI.as_view()),
     path('api/rooms/<int:room_id>', views_api.MuseumRoomDetails.as_view(), name='room-details'),
     path('api/rooms/<int:room_id>/exhibits', views_api.ExhibitsByRoom.as_view(), name='exhibits-by-room'),
-    path('api/rooms/add/', views_api.MuseumRoomCreateAPIView.as_view())
+    path('api/rooms/add/', views_api.MuseumRoomCreateAPIView.as_view()),
+    path('api/rooms/update/<int:pk>/', views_api.MuseumRoomUpdateView.as_view())
 ]
