@@ -73,3 +73,12 @@ class ExhibitDeleteAPI(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
         except Exhibit.DoesNotExist:
             return Response({"error": "Exhibit not found"}, status=status.HTTP_404_NOT_FOUND)
+
+class ExhibitionDeleteAPI(APIView):
+    def delete(self, request, pk, format=None):
+        try:
+            exhibition = Exhibition.objects.get(pk=pk)
+            exhibition.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except Exhibition.DoesNotExist:
+            return Response({"error": "Exhibition not found"}, status=status.HTTP_404_NOT_FOUND)
