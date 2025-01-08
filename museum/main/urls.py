@@ -28,4 +28,5 @@ urlpatterns = [
     path('api/exhibits/<int:pk>/', views_api.ExhibitDetailAPI.as_view(), name='exhibit-detail'),
     path('api/exhibitions/<int:pk>/', views_api.ExhibitionDetailAPI.as_view(), name='exhibition-detail'),
     path('api/exhibits/update/<int:pk>/', views_api.ExhibitUpdateView.as_view()),
+    path('api/exhibitions/update/<int:pk>/', views_api.ExhibitionUpdateView.as_view()),
 ]

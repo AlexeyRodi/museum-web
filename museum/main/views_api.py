@@ -50,3 +50,7 @@ class ExhibitionDetailAPI(APIView):
 class ExhibitUpdateView(UpdateAPIView):
     queryset = Exhibit.objects.all()
     serializer_class = ExhibitSerializer
+
+class ExhibitionUpdateView(UpdateAPIView):
+    queryset = Exhibition.objects.all()
+    serializer_class = ExhibitionsSerializer
