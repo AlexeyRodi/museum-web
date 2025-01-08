@@ -63,7 +63,7 @@ class ExhibitionsSerializer(serializers.ModelSerializer):
 class MuseumRoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = MuseumRoom
-        fields = ['room_id', 'room_number', 'description', 'museum']
+        fields = ['room_id', 'room_number', 'description']
 
 
 class ExhibitSerializer(serializers.ModelSerializer):
