@@ -42,6 +42,28 @@
 </nav>
 <div class="container-fluid">
     <h1 class="head-text">Список комнат</h1>
+
+    <div class="dropdown mb-3">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-bs-toggle="dropdown" aria-expanded="false">
+            Сортировать
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li><a class="dropdown-item" href="?sort=number">По номеру</a></li>
+            <li><a class="dropdown-item" href="?sort=description">По описанию</a></li>
+        </ul>
+    </div>
+
+
+    <div class="mb-3">
+        <form method="get" class="d-flex">
+            <input type="text" name="q" class="form-control me-2 w-50" placeholder="Поиск по номеру"
+                   value="{{ search_query|default:'' }}">
+            <button type="submit" class="btn btn-primary">Искать</button>
+        </form>
+    </div>
+
+
     <table class="table">
         <thead>
         <tr>

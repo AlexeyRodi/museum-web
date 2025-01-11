@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import UpdateView, DeleteView
 from django.db.models.functions import Substr
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from .forms import ExhibitionForm, MuseumRoomForm, ExhibitForm, ExhibitMuseumForm
 from .models import Exhibition, MuseumRoom, Exhibit, Museum
@@ -11,45 +12,99 @@ def index(request):
 
 
 def rooms_list(request):
-    rooms = MuseumRoom.objects.all().order_by('room_number')
-    return render(request, 'main/rooms-list.html', {'rooms': rooms})
+    search_query = request.GET.get('q', '')
+    sort = request.GET.get('sort', '')
+
+    rooms = MuseumRoom.objects.all()
+
+    if search_query:
+        rooms = rooms.filter(room_number__icontains=search_query)
+
+    if sort == 'number':
+        rooms = rooms.order_by('room_number')
+    elif sort == 'description':
+        rooms = rooms.order_by('description')
+
+    return render(request, 'main/rooms-list.html', {'rooms': rooms, 'search_query': search_query})
 
 
 def exhibitions_list(request):
+    search_query = request.GET.get('q', '')
+    sort = request.GET.get('sort', '')
     exhibitions = Exhibition.objects.all()
-    return render(request, 'main/exhibitions-list.html', {'exhibitions': exhibitions})
+
+    if search_query:
+        exhibitions = exhibitions.filter(name__icontains=search_query)
+
+    if sort == 'name':
+        exhibitions = exhibitions.order_by(Substr('name', 1, 1))
+
+    paginator = Paginator(exhibitions, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'main/exhibitions-list.html', {
+        'exhibitions': page_obj,
+        'search_query': search_query
+    })
 
 
 def all_exhibits_list(request):
     sort = request.GET.get('sort', '')
+    search_query = request.GET.get('q', '')
 
-    # Сортировка по выбранному параметру
+    exhibits = Exhibit.objects.all()
+
+    if search_query:
+        exhibits = exhibits.filter(name__icontains=search_query)
+
     if sort == 'date':
-        exhibits = Exhibit.objects.order_by('creation_year')
+        exhibits = exhibits.order_by('creation_year')
     elif sort == 'name':
-        exhibits = Exhibit.objects.order_by(Substr('name', 1, 1))
+        exhibits = exhibits.order_by(Substr('name', 1, 1))
     elif sort == 'room':
-        exhibits = Exhibit.objects.order_by('room__room_number')
-    else:
-        exhibits = Exhibit.objects.all()
-    return render(request, 'main/all-exhibits-list.html', {'exhibits': exhibits})
+        exhibits = exhibits.order_by('room__room_number')
+
+    paginator = Paginator(exhibits, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'main/all-exhibits-list.html', {
+        'exhibits': page_obj,
+        'search_query': search_query
+    })
 
 
 def exhibits_list(request, room_id):
     room = MuseumRoom.objects.get(room_id=room_id)
     sort = request.GET.get('sort', '')
+    search_query = request.GET.get('q', '')
 
-    # Сортировка по выбранному параметру
+    exhibits = Exhibit.objects.filter(room=room)
+
+    if search_query:
+        exhibits = exhibits.filter(name__icontains=search_query)
+
     if sort == 'date':
-        exhibits = Exhibit.objects.order_by('creation_year').filter(room=room)
+        exhibits = exhibits.order_by('creation_year')
     elif sort == 'name':
-        exhibits = Exhibit.objects.order_by(Substr('name', 1, 1)).filter(room=room)
+        exhibits = exhibits.order_by(Substr('name', 1, 1))
     elif sort == 'room':
-        exhibits = Exhibit.objects.order_by('room__room_number').filter(room=room)
-    else:
-        exhibits = Exhibit.objects.filter(room=room)
+        exhibits = exhibits.order_by('room__room_number')
 
-    return render(request, 'main/exhibits-list.html', {'exhibits': exhibits, 'room': room})
+    paginator = Paginator(exhibits, 10)
+    page = request.GET.get('page')
+
+    try:
+        exhibits = paginator.page(page)
+    except PageNotAnInteger:
+        exhibits = paginator.page(paginator.num_pages)
+
+    return render(request, 'main/exhibits-list.html', {
+        'exhibits': exhibits,
+        'room': room,
+        'search_query': search_query
+    })
 
 
 class ExhibitionUpdateView(UpdateView):
@@ -180,6 +235,7 @@ def exhibition_detail(request, exhibition_id):
 def exhibit_detail(request, exhibit_id):
     exhibit = get_object_or_404(Exhibit, exhibit_id=exhibit_id)
     return render(request, 'main/exhibit-detail.html', {'exhibit': exhibit})
+
 
 def exhibit_room_detail(request, exhibit_id, room_id):
     exhibit = get_object_or_404(Exhibit, exhibit_id=exhibit_id)
