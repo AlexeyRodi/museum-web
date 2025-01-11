@@ -97,38 +97,36 @@
     </a>
 
     <nav aria-label="Page navigation" class="mt-4">
-        <ul class="pagination justify-content-center">
-            {% if exhibits.has_previous %}
+    <ul class="pagination justify-content-center">
+        {% if exhibits.has_previous %}
             <li class="page-item">
                 <a class="page-link"
                    href="?page={{ exhibits.previous_page_number }}&q={{ search_query }}&sort={{ request.GET.sort|default:'' }}">Предыдущая</a>
             </li>
-            {% else %}
+        {% else %}
             <li class="page-item disabled">
                 <span class="page-link">Предыдущая</span>
             </li>
-            {% endif %}
+        {% endif %}
 
-            {% for num in exhibits.paginator.page_range %}
+        {% for num in exhibits.paginator.page_range %}
             <li class="page-item {% if num == exhibits.number %}active{% endif %}">
-                <a class="page-link" href="?page={{ num }}&q={{ search_query }}&sort={{ request.GET.sort|default:'' }}">{{
-                    num }}</a>
+                <a class="page-link" href="?page={{ num }}&q={{ search_query }}&sort={{ request.GET.sort|default:'' }}">{{ num }}</a>
             </li>
-            {% endfor %}
+        {% endfor %}
 
-            {% if exhibits.has_next %}
+        {% if exhibits.has_next %}
             <li class="page-item">
                 <a class="page-link"
                    href="?page={{ exhibits.next_page_number }}&q={{ search_query }}&sort={{ request.GET.sort|default:'' }}">Следующая</a>
             </li>
-            {% else %}
+        {% else %}
             <li class="page-item disabled">
                 <span class="page-link">Следующая</span>
             </li>
-            {% endif %}
-        </ul>
-    </nav>
-
+        {% endif %}
+    </ul>
+</nav>
 
 </div>
 

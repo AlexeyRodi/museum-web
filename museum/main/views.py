@@ -11,6 +11,9 @@ def index(request):
     return render(request, 'main/index.html')
 
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+
 def rooms_list(request):
     search_query = request.GET.get('q', '')
     sort = request.GET.get('sort', '')
@@ -25,7 +28,20 @@ def rooms_list(request):
     elif sort == 'description':
         rooms = rooms.order_by('description')
 
-    return render(request, 'main/rooms-list.html', {'rooms': rooms, 'search_query': search_query})
+    paginator = Paginator(rooms, 10)
+    page = request.GET.get('page')
+
+    try:
+        rooms_page = paginator.page(page)
+    except PageNotAnInteger:
+        rooms_page = paginator.page(1)
+    except EmptyPage:
+        rooms_page = paginator.page(paginator.num_pages)
+
+    return render(request, 'main/rooms-list.html', {
+        'rooms': rooms_page,
+        'search_query': search_query,
+    })
 
 
 def exhibitions_list(request):
@@ -96,12 +112,12 @@ def exhibits_list(request, room_id):
     page = request.GET.get('page')
 
     try:
-        exhibits = paginator.page(page)
+        exhibits_page = paginator.page(page)
     except PageNotAnInteger:
-        exhibits = paginator.page(paginator.num_pages)
+        exhibits_page = paginator.page(paginator.num_pages)
 
     return render(request, 'main/exhibits-list.html', {
-        'exhibits': exhibits,
+        'exhibits': exhibits_page,
         'room': room,
         'search_query': search_query
     })
