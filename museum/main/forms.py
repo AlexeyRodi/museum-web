@@ -1,6 +1,7 @@
-from .models import Exhibition, MuseumRoom, Exhibit
-from django.forms import ModelForm, TextInput, DateInput
+from .models import Exhibition, MuseumRoom, Exhibit, Users
+from django.forms import ModelForm, TextInput, DateInput, PasswordInput
 from django.forms.widgets import Select, ClearableFileInput
+from django import forms
 
 
 class ExhibitionForm(ModelForm):
@@ -139,3 +140,44 @@ class ExhibitMuseumForm(ModelForm):
                 'accept': 'image/*',
             }),
         }
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(
+        label="Имя пользователя",
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Имя пользователя'
+        })
+    )
+    password = forms.CharField(
+        label="Пароль",
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Пароль'
+        })
+    )
+
+
+class RegisterForm(forms.Form):
+    username = forms.CharField(
+        label="Имя пользователя",
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Имя пользователя'
+        })
+    )
+    password = forms.CharField(
+        label="Пароль",
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Пароль'
+        })
+    )
+    password2 = forms.CharField(
+        label="Подтвердите пароль",
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Подтвердите пароль'
+        })
+    )

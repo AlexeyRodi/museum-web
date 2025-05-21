@@ -21,6 +21,9 @@ urlpatterns = [
     path('exhibitions/<int:exhibition_id>/', views.exhibition_detail, name='exhibition_detail'),
     path('exhibits/<int:exhibit_id>/', views.exhibit_detail, name='exhibit_detail'),
     path('rooms/<int:room_id>/exhibits/<int:exhibit_id>/', views.exhibit_room_detail, name='exhibit_room_detail'),
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
+    path('register/', views.register_view, name='register'),
 
     path('api/exhibitions/', views_api.ExhibitionsAPI.as_view(), name='exhibitions-list-api'),
     path('api/rooms/', views_api.MuseumRoomAPI.as_view(), name='museum-rooms-list-api'),

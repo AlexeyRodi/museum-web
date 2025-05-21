@@ -30,12 +30,28 @@
             </li>
 
             <li class="nav-item">
+                {% if request.session.username %}
+            <li class="nav-item">
+                <span class="nav-link">Привет, {{ request.session.username }}</span>
+            </li>
+            <li class="nav-item">
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Выйти</button>
+                </form>
+            </li>
+            {% else %}
+            <li class="nav-item">
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    <a href="sign-in.html">
+                    <a href="{% url 'login' %}">
                         <button type="button" class="btn btn-success">Войти</button>
                     </a>
-                    <button type="button" class="btn btn-warning">Зарегистрироваться</button>
+                    <a href="{% url 'register' %}">
+                        <button type="button" class="btn btn-warning">Зарегистрироваться</button>
+                    </a>
                 </div>
+            </li>
+            {% endif %}
             </li>
         </ul>
     </div>
@@ -72,6 +88,7 @@
                     <button type="button" class="btn btn-secondary">Подробнее</button>
                 </a>
             </td>
+            {% if request.session.role == 'admin' %}
             <td>
                 <div class="btn-group">
                     <a href="{% url 'update_exhibition' exhibition.exhibition_id %}" class="btn btn-primary active"
@@ -79,14 +96,20 @@
                     <a href="{% url 'delete_exhibition' exhibition.exhibition_id %}" class="btn btn-primary">Удалить</a>
                 </div>
             </td>
+            {% endif %}
+
         </tr>
         {% endfor %}
 
         </tbody>
     </table>
+    {% if request.session.role == 'admin' %}
+
     <a href="{% url 'add_exhibition' %}">
         <button type="button" class="btn btn-warning">Добавить</button>
     </a>
+    {% endif %}
+
 
     <nav aria-label="Page navigation" class="mt-4">
         <ul class="pagination justify-content-center">

@@ -1,14 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import UpdateView, DeleteView
 from django.db.models.functions import Substr
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.contrib.auth.hashers import make_password, check_password
+from django.contrib import messages
 
-from .forms import ExhibitionForm, MuseumRoomForm, ExhibitForm, ExhibitMuseumForm
-from .models import Exhibition, MuseumRoom, Exhibit, Museum
+from .forms import ExhibitionForm, MuseumRoomForm, ExhibitForm, ExhibitMuseumForm, LoginForm, RegisterForm
+from .models import Exhibition, MuseumRoom, Exhibit, Museum, Users
+from django.views.decorators.csrf import csrf_protect
 
 
 def index(request):
-    return render(request, 'main/index.html')
+    username = request.session.get('username')
+    return render(request, 'main/index.html', {'username': username})
 
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -257,3 +260,54 @@ def exhibit_room_detail(request, exhibit_id, room_id):
     exhibit = get_object_or_404(Exhibit, exhibit_id=exhibit_id)
     room = get_object_or_404(MuseumRoom, room_id=room_id)
     return render(request, 'main/exhibit-room-detail.html', {'exhibit': exhibit, 'room': room})
+
+
+def login_view(request):
+    form = LoginForm(request.POST or None)
+
+    if request.method == 'POST' and form.is_valid():
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+
+        try:
+            user = Users.objects.get(username=username)
+            if check_password(password, user.password):
+                request.session['user_id'] = user.user_id
+                request.session['username'] = user.username
+                request.session['role'] = user.role
+                return redirect('index')  # Перенаправляем на главную
+            else:
+                messages.error(request, 'Неверный пароль.')
+        except Users.DoesNotExist:
+            messages.error(request, 'Пользователь не найден.')
+
+    return render(request, 'main/login.html', {'form': form})
+
+@csrf_protect
+def logout_view(request):
+    request.session.flush()  # Очищает всю сессию
+    return redirect('index')  # Перенаправляет на главную
+
+def register_view(request):
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+
+            # Проверка на уникальность имени
+            if Users.objects.filter(username=username).exists():
+                form.add_error('username', 'Пользователь с таким именем уже существует')
+            else:
+                # Хешируем пароль перед сохранением
+                user = Users(
+                    username=username,
+                    password=make_password(password),
+                    role='visitor'  # если в модели есть поле "role"
+                )
+                user.save()
+                return redirect('login')  # перенаправление на страницу входа
+    else:
+        form = RegisterForm()
+
+    return render(request, 'main/register.html', {'form': form})
